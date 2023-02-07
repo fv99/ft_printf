@@ -10,98 +10,83 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libftprintf.h"
 
-static int	prints(int *varg, char *format, int width, int pad)
+static int	print_string(va_list *args)
 {
-	int	printed;
-	int	padchar;
+	char	*str;
+	int		len;
 
-	printed = 0;
-	padchar = ' ';
+	str = va_arg(*args, char *);
+	if (!str)
+		str = "(null)";
+	ft_putstr_fd(str, 1);
+	return (ft_strlen(str));
+}	
 
-	if (width > 0)
-	{
-		
+static int	putchar_return(va_list *args)
+{
+	ft_putchar_fd(va_arg(*args, int), 1);
+	return (1);
+}	
 
+static int	check_format(va_list *args, char c, int count)
+{
+	if (c == 'c')
+		count += putchar_return(args);
+	if (c == 's')
+		count += print_string(args);
+	if (c == 'p')
 
-	}
+	if (c == 'd' || c == 'i')
 
+	if (c == 'u')
+
+	if (c == 'x')
+
+	if (c == 'X')
+
+	if (c == '%')
+		count += putchar_return(args);
+	return (count);
 }
 
-static int	printi()
-{
-
-
-}
-
-static int	ft_print(int *varg, char *format, int printed, int width, int pad)
-{
-	char *s;
-
-	if (*format == 's')
-	{
-		s = *((char **)varg++);
-		
-
-	}
-
-
-
-}
-
-static int	ft_format(int *varg, char *format, int printed)
-{
-	int		width;
-	int		pad;
-
-	while (*format != 0)
-	{
-		++format;
-		width = pad = 0;
-		if (*format == '-')
-		{
-			++format;
-			pad = PAD_RIGHT;
-		}
-		while (*format == '0')
-		{
-			++format;
-			pad |= PAD_ZERO;
-		}
-		while (*format >= '0' && *format <= '9')
-		{
-			++format;
-			width *= 10;
-			width += *format - '0';
-		}
-		ft_print(*varg, *format, printed, width, pad);
-
-
-	}
-}
-
-
+// The va_list data type is a type definition 
+// for a type that holds a list of arguments. 
+// va_start is a macro that initializes a 
+// va_list type with the first unnamed argument. 
+// va_arg is a macro that returns the next argument
+// in the va_list and updates the pointer to the next argument. 
+// va_end is a macro that should be called after 
+// all the arguments have been processed 
+// to perform any necessary cleanup.
 
 int	ft_printf(const char *input, ...)
 {
-	int		*varg;
-	char	*format;
-	int		printed;
+	int		count;
+	int		i;
+	va_list	args;
+	char	*ptr;
 
-	varg = (int *)(&input);
-	format = (char *)(*varg++);
-	printed = 0;
-	while (*format != 0)
+	count = 0;
+	ptr = (char *)input;
+	va_start(args, input);
+	while (ptr[i] != '\0')
 	{
-		format++;
-		if (*format == '%')
-			ft_format(*varg++, *format, printed);
+		if (ptr[i] == '%')
+		{
+			count += check_format(&args, ptr[i + 1], count);
+			i += 2;
+		}
 		else
-			ft_putchar_fd(*format, 1);
-		printed++;
+		{
+			ft_putchar_fd(ptr[i], 1);
+			i++;
+			count++;
+		}
 	}
-	return (printed);
+	va_end(args);
+	return (count);
 }
 
 int main(void)
