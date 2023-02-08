@@ -12,10 +12,40 @@
 
 #include "libftprintf.h"
 
+// The val & 0x0f operation retrieves
+// the rightmost 4 bits of the binary
+// number val, and indexes the HEX_CHARS
+// string with this 4-bit value to get the
+// corresponding hexadecimal character. 
+// The val >>= 4 operation shifts the
+// binary number val 4 bits to the right, 
+// effectively dividing the binary number by 16. 
+static int	print_hex_pointer(va_list args)
+{
+	char		buf[sizeof(uintptr_t) * 2 + 2];
+	void		*ptr;
+	uintptr_t	val;
+	int			i;
+
+	i = sizeof(buf) - 1;
+	ptr = va_arg(args, void *);
+	val = (uintptr_t)ptr;
+	buf[0] = '0';
+	buf[1] = 'x';
+	while (i >= 2)
+	{
+		buf[i] = HEX_CHARS[val & 0x0f];
+		val >>= 4;
+		i--;
+	}
+	write(1, buf, sizeof(buf));
+	return (sizeof(buf));
+}
+
+
 static int	print_string(va_list *args)
 {
 	char	*str;
-	int		len;
 
 	str = va_arg(*args, char *);
 	if (!str)
@@ -37,14 +67,14 @@ static int	check_format(va_list *args, char c, int count)
 	if (c == 's')
 		count += print_string(args);
 	if (c == 'p')
+		count += print_hex_pointer(va_arg(*args, va_list));
+	// if (c == 'd' || c == 'i')
 
-	if (c == 'd' || c == 'i')
+	// if (c == 'u')
 
-	if (c == 'u')
+	// if (c == 'x')
 
-	if (c == 'x')
-
-	if (c == 'X')
+	// if (c == 'X')
 
 	if (c == '%')
 		count += putchar_return(args);
@@ -60,7 +90,6 @@ static int	check_format(va_list *args, char c, int count)
 // va_end is a macro that should be called after 
 // all the arguments have been processed 
 // to perform any necessary cleanup.
-
 int	ft_printf(const char *input, ...)
 {
 	int		count;
@@ -68,6 +97,7 @@ int	ft_printf(const char *input, ...)
 	va_list	args;
 	char	*ptr;
 
+	i = 0;
 	count = 0;
 	ptr = (char *)input;
 	va_start(args, input);
@@ -87,38 +117,4 @@ int	ft_printf(const char *input, ...)
 	}
 	va_end(args);
 	return (count);
-}
-
-int main(void)
-{
-	char *ptr ="Hello world!";
-	char *np = 0;
-	int i = 5;
-	unsigned int bs = sizeof(int)*8;
-	int mi;
-	char buf[80];
-
-	mi = (1 << (bs-1)) + 1;
-	ft_printf("%s\n", ptr);
-	ft_printf("ft_printf test\n");
-	ft_printf("%s is null pointer\n", np);
-	ft_printf("%d = 5\n", i);
-	ft_printf("%d = - max int\n", mi);
-	ft_printf("char %c = 'a'\n", 'a');
-	ft_printf("hex %x = ff\n", 0xff);
-	ft_printf("hex %02x = 00\n", 0);
-	ft_printf("signed %d = unsigned %u = hex %x\n", -3, -3, -3);
-	ft_printf("%d %s(s)%", 0, "message");
-	ft_printf("\n");
-	ft_printf("%d %s(s) with %%\n", 0, "message");
-	ft_printf(buf, "justif: \"%-10s\"\n", "left"); ft_printf("%s", buf);
-	ft_printf(buf, "justif: \"%10s\"\n", "right"); ft_printf("%s", buf);
-	ft_printf(buf, " 3: %04d zero padded\n", 3); ft_printf("%s", buf);
-	ft_printf(buf, " 3: %-4d left justif.\n", 3); ft_printf("%s", buf);
-	ft_printf(buf, " 3: %4d right justif.\n", 3); ft_printf("%s", buf);
-	ft_printf(buf, "-3: %04d zero padded\n", -3); ft_printf("%s", buf);
-	ft_printf(buf, "-3: %-4d left justif.\n", -3); ft_printf("%s", buf);
-	ft_printf(buf, "-3: %4d right justif.\n", -3); ft_printf("%s", buf);
-
-	return (0);
 }
