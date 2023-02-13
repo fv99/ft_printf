@@ -6,7 +6,7 @@
 /*   By: fvonsovs <fvonsovs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 12:41:22 by fvonsovs          #+#    #+#             */
-/*   Updated: 2023/02/13 17:14:37 by fvonsovs         ###   ########.fr       */
+/*   Updated: 2023/02/13 18:02:58 by fvonsovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@
 
 # ifndef HEX_CHARS
 #  define HEX_CHARS "0123456789abcdef"
+# endif
+
+# ifndef HEX_CHARS_UPPERCASE
+#  define HEX_CHARS_UPPERCASE "0123456789ABCDEF"
 # endif
 
 int	ft_printf(const char *input, ...);

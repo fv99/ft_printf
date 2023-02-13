@@ -6,7 +6,7 @@
 /*   By: fvonsovs <fvonsovs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:16:24 by fvonsovs          #+#    #+#             */
-/*   Updated: 2023/02/13 17:51:18 by fvonsovs         ###   ########.fr       */
+/*   Updated: 2023/02/13 18:07:42 by fvonsovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ int main(void)
 	ft_printf("percent sign: %%\n");
 	ft_printf("void pointer hex: %p \n", &i);
 	ft_printf("unsigned 4294966876 = %u \n", -420);
-	ft_printf("hex %x = ff\n", 0xff);
+	ft_printf("lowercase hex %x = ff\n", 0xff);
+	ft_printf("uppercase hex %X = DEADBEEF\n", 3735928559);
 	ft_printf("hex %02x = 00\n", 0);
 	ft_printf("signed %d = unsigned %u = hex %x\n", -3, -3, -3);
 	ft_printf("%d %s(s)%", 0, "message");

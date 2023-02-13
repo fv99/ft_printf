@@ -103,6 +103,63 @@ int	print_unsigned_base10(va_list *args)
 	return (i);
 }
 
+// in C hex values unsigned by default
+int	print_hex_lowercase(va_list *args)
+{
+	unsigned int	n;
+	char			buf[9];
+	int				i;
+	int				digit;
+
+	n = va_arg(*args, unsigned int);
+	i = 0;
+	if (n == 0)
+        buf[i++] = '0';
+	else
+	{
+		while (n > 0)
+		{
+			digit = n % 16;
+			buf[i++] = HEX_CHARS[digit];
+			n /= 16;
+		}
+	}
+	while (i > 0)
+	{
+		i--;
+		write(1, &buf[i], 1);
+	}
+	return (i);
+}
+
+int	print_hex_uppercase(va_list *args)
+{
+	unsigned int	n;
+	char			buf[9];
+	int				i;
+	int				digit;
+
+	n = va_arg(*args, unsigned int);
+	i = 0;
+	if (n == 0)
+        buf[i++] = '0';
+	else
+	{
+		while (n > 0)
+		{
+			digit = n % 16;
+			buf[i++] = HEX_CHARS_UPPERCASE[digit];
+			n /= 16;
+		}
+	}
+	while (i > 0)
+	{
+		i--;
+		write(1, &buf[i], 1);
+	}
+	return (i);
+}
+
 int	check_format(va_list *args, char c, int count)
 {
 	if (c == 'c')
@@ -115,10 +172,10 @@ int	check_format(va_list *args, char c, int count)
 		count += print_integer_base10(args);
 	if (c == 'u')
 		count += print_unsigned_base10(args);
-	// if (c == 'x')
-
-	// if (c == 'X')
-
+	if (c == 'x')
+		count += print_hex_lowercase(args);
+	if (c == 'X')
+		count += print_hex_uppercase(args);
 	if (c == '%')
 		count += write(1, "%", 1);
 	return (count);
