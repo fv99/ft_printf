@@ -76,13 +76,32 @@ int	print_integer_base10(va_list *args)
 	return(len);
 }
 
-// int	print_unsigned_base10(va_list *args)
-// {
+// buffer size of 21 should be ok for 32-bit unsigned int
+int	print_unsigned_base10(va_list *args)
+{
+	unsigned int	n;
+	char			buf[21];
+	int				i;
 
-
-
-
-// }
+	n = va_arg(*args, unsigned int);
+	i = 0;
+	if (n == 0)
+        buf[i++] = '0';
+	else
+	{
+		while (n > 0)
+		{
+			buf[i++] = n % 10 + '0';
+			n /= 10;
+		}
+	}
+	while (i > 0)
+	{
+		i--;
+		write(1, &buf[i], 1);
+	}
+	return (i);
+}
 
 int	check_format(va_list *args, char c, int count)
 {
@@ -94,8 +113,8 @@ int	check_format(va_list *args, char c, int count)
 		count += print_hex_pointer(args);
 	if (c == 'd' || c == 'i')
 		count += print_integer_base10(args);
-	// if (c == 'u')
-
+	if (c == 'u')
+		count += print_unsigned_base10(args);
 	// if (c == 'x')
 
 	// if (c == 'X')

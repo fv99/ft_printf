@@ -6,7 +6,7 @@
 /*   By: fvonsovs <fvonsovs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:16:24 by fvonsovs          #+#    #+#             */
-/*   Updated: 2023/02/13 16:41:46 by fvonsovs         ###   ########.fr       */
+/*   Updated: 2023/02/13 17:51:18 by fvonsovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int main(void)
 	ft_printf("char %c = 'a'\n", 'a');
 	ft_printf("percent sign: %%\n");
 	ft_printf("void pointer hex: %p \n", &i);
+	ft_printf("unsigned 4294966876 = %u \n", -420);
 	ft_printf("hex %x = ff\n", 0xff);
 	ft_printf("hex %02x = 00\n", 0);
 	ft_printf("signed %d = unsigned %u = hex %x\n", -3, -3, -3);
