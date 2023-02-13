@@ -6,11 +6,13 @@
 /*   By: fvonsovs <fvonsovs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:16:24 by fvonsovs          #+#    #+#             */
-/*   Updated: 2023/02/08 16:17:05 by fvonsovs         ###   ########.fr       */
+/*   Updated: 2023/02/13 16:41:46 by fvonsovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
+#include "ft_printf.c"
+#include "./libft/libft.h"
 
 int main(void)
 {
@@ -26,8 +28,10 @@ int main(void)
 	ft_printf("ft_printf test\n");
 	ft_printf("%s is null pointer\n", np);
 	ft_printf("%d = 5\n", i);
-	ft_printf("%d = - max int\n", mi);
+	ft_printf("%d = -2147483647 max int\n", mi);
 	ft_printf("char %c = 'a'\n", 'a');
+	ft_printf("percent sign: %%\n");
+	ft_printf("void pointer hex: %p \n", &i);
 	ft_printf("hex %x = ff\n", 0xff);
 	ft_printf("hex %02x = 00\n", 0);
 	ft_printf("signed %d = unsigned %u = hex %x\n", -3, -3, -3);
@@ -45,3 +49,27 @@ int main(void)
 
 	return (0);
 }
+
+/*
+ * This should display :
+ *
+ * Hello world!
+ * ft_printf test
+ * (null) is null pointer
+ * 5 = 5
+ * -2147483647 = -2147483647 max int
+ * char a = 'a'
+ * hex ff = ff
+ * hex 00 = 00
+ * signed -3 = unsigned 4294967293 = hex fffffffd
+ * 0 message(s)
+ * 0 message(s) with %
+ * justif: "left      "
+ * justif: "     right"
+ *  3: 0003 zero padded
+ *  3: 3    left justif.
+ *  3:    3 right justif.
+ * -3: -003 zero padded
+ * -3: -3   left justif.
+ * -3:   -3 right justif.
+ */

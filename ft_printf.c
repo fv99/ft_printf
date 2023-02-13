@@ -20,16 +20,15 @@
 // The val >>= 4 operation shifts the
 // binary number val 4 bits to the right, 
 // effectively dividing the binary number by 16. 
-static int	print_hex_pointer(va_list args)
+int	print_hex_pointer(va_list *args)
 {
-	char		buf[sizeof(uintptr_t) * 2 + 2];
-	void		*ptr;
+	char		buf[sizeof(uintptr_t) * 2 + 3] = {0};
 	uintptr_t	val;
 	int			i;
+	int 		len;
 
-	i = sizeof(buf) - 1;
-	ptr = va_arg(args, void *);
-	val = (uintptr_t)ptr;
+	i = sizeof(buf) - 2;
+	val = (uintptr_t)va_arg(*args, void *);
 	buf[0] = '0';
 	buf[1] = 'x';
 	while (i >= 2)
@@ -37,13 +36,17 @@ static int	print_hex_pointer(va_list args)
 		buf[i] = HEX_CHARS[val & 0x0f];
 		val >>= 4;
 		i--;
+		if (val == 0)
+			break;
 	}
-	write(1, buf, sizeof(buf));
-	return (sizeof(buf));
+	buf[sizeof(buf) - 1] = '\0';
+	len = sizeof(buf) - i - 1;
+	write(1, buf, len);
+	return (len);
 }
 
 
-static int	print_string(va_list *args)
+int	print_string(va_list *args)
 {
 	char	*str;
 
@@ -54,22 +57,43 @@ static int	print_string(va_list *args)
 	return (ft_strlen(str));
 }	
 
-static int	putchar_return(va_list *args)
+int	putchar_return(va_list *args)
 {
 	ft_putchar_fd(va_arg(*args, int), 1);
 	return (1);
 }	
 
-static int	check_format(va_list *args, char c, int count)
+int	print_integer_base10(va_list *args)
+{
+	char	*str;
+	int		len;
+
+	str = ft_itoa(va_arg(*args, int));
+	ft_putstr_fd(str, 1);
+	len = ft_strlen(str);
+	if (ft_strncmp(str, "-2147483648", 12) != 0)
+		free(str);
+	return(len);
+}
+
+// int	print_unsigned_base10(va_list *args)
+// {
+
+
+
+
+// }
+
+int	check_format(va_list *args, char c, int count)
 {
 	if (c == 'c')
 		count += putchar_return(args);
 	if (c == 's')
 		count += print_string(args);
 	if (c == 'p')
-		count += print_hex_pointer(va_arg(*args, va_list));
-	// if (c == 'd' || c == 'i')
-
+		count += print_hex_pointer(args);
+	if (c == 'd' || c == 'i')
+		count += print_integer_base10(args);
 	// if (c == 'u')
 
 	// if (c == 'x')
@@ -77,7 +101,7 @@ static int	check_format(va_list *args, char c, int count)
 	// if (c == 'X')
 
 	if (c == '%')
-		count += putchar_return(args);
+		count += write(1, "%", 1);
 	return (count);
 }
 
