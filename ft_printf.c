@@ -1,164 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fvonsovs <fvonsovs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 12:42:46 by fvonsovs          #+#    #+#             */
-/*   Updated: 2023/01/31 16:40:47 by fvonsovs         ###   ########.fr       */
+/*   Updated: 2023/02/17 15:33:17 by fvonsovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
-
-// The val & 0x0f operation retrieves
-// the rightmost 4 bits of the binary
-// number val, and indexes the HEX_CHARS
-// string with this 4-bit value to get the
-// corresponding hexadecimal character. 
-// The val >>= 4 operation shifts the
-// binary number val 4 bits to the right, 
-// effectively dividing the binary number by 16. 
-int	print_hex_pointer(va_list *args)
-{
-	char		buf[sizeof(uintptr_t) * 2 + 3] = {0};
-	uintptr_t	val;
-	int			i;
-	int 		len;
-
-	i = sizeof(buf) - 2;
-	val = (uintptr_t)va_arg(*args, void *);
-	buf[0] = '0';
-	buf[1] = 'x';
-	while (i >= 2)
-	{
-		buf[i] = HEX_CHARS[val & 0x0f];
-		val >>= 4;
-		i--;
-		if (val == 0)
-			break;
-	}
-	buf[sizeof(buf) - 1] = '\0';
-	len = sizeof(buf) - i - 1;
-	write(1, buf, len);
-	return (len);
-}
-
-
-int	print_string(va_list *args)
-{
-	char	*str;
-
-	str = va_arg(*args, char *);
-	if (!str)
-		str = "(null)";
-	ft_putstr_fd(str, 1);
-	return (ft_strlen(str));
-}	
-
-int	putchar_return(va_list *args)
-{
-	ft_putchar_fd(va_arg(*args, int), 1);
-	return (1);
-}	
-
-int	print_integer_base10(va_list *args)
-{
-	char	*str;
-	int		len;
-
-	str = ft_itoa(va_arg(*args, int));
-	ft_putstr_fd(str, 1);
-	len = ft_strlen(str);
-	if (ft_strncmp(str, "-2147483648", 12) != 0)
-		free(str);
-	return(len);
-}
-
-// buffer size of 21 should be ok for 32-bit unsigned int
-int	print_unsigned_base10(va_list *args)
-{
-	unsigned int	n;
-	char			buf[21];
-	int				i;
-
-	n = va_arg(*args, unsigned int);
-	i = 0;
-	if (n == 0)
-        buf[i++] = '0';
-	else
-	{
-		while (n > 0)
-		{
-			buf[i++] = n % 10 + '0';
-			n /= 10;
-		}
-	}
-	while (i > 0)
-	{
-		i--;
-		write(1, &buf[i], 1);
-	}
-	return (i);
-}
-
-// in C hex values unsigned by default
-int	print_hex_lowercase(va_list *args)
-{
-	unsigned int	n;
-	char			buf[9];
-	int				i;
-	int				digit;
-
-	n = va_arg(*args, unsigned int);
-	i = 0;
-	if (n == 0)
-        buf[i++] = '0';
-	else
-	{
-		while (n > 0)
-		{
-			digit = n % 16;
-			buf[i++] = HEX_CHARS[digit];
-			n /= 16;
-		}
-	}
-	while (i > 0)
-	{
-		i--;
-		write(1, &buf[i], 1);
-	}
-	return (i);
-}
-
-int	print_hex_uppercase(va_list *args)
-{
-	unsigned int	n;
-	char			buf[9];
-	int				i;
-	int				digit;
-
-	n = va_arg(*args, unsigned int);
-	i = 0;
-	if (n == 0)
-        buf[i++] = '0';
-	else
-	{
-		while (n > 0)
-		{
-			digit = n % 16;
-			buf[i++] = HEX_CHARS_UPPERCASE[digit];
-			n /= 16;
-		}
-	}
-	while (i > 0)
-	{
-		i--;
-		write(1, &buf[i], 1);
-	}
-	return (i);
-}
 
 int	check_format(va_list *args, char c, int count)
 {

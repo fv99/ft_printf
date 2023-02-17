@@ -6,13 +6,11 @@
 /*   By: fvonsovs <fvonsovs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:16:24 by fvonsovs          #+#    #+#             */
-/*   Updated: 2023/02/13 18:37:46 by fvonsovs         ###   ########.fr       */
+/*   Updated: 2023/02/17 15:37:31 by fvonsovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
-#include "ft_printf.c"
-#include "./libft/libft.h"
 
 int main(void)
 {

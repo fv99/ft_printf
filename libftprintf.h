@@ -6,7 +6,7 @@
 /*   By: fvonsovs <fvonsovs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 12:41:22 by fvonsovs          #+#    #+#             */
-/*   Updated: 2023/02/13 18:21:12 by fvonsovs         ###   ########.fr       */
+/*   Updated: 2023/02/17 15:37:03 by fvonsovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,25 @@
 # include <stdint.h>
 # include "./libft/libft.h"
 
-# ifndef HEX_CHARS
-#  define HEX_CHARS "0123456789abcdef"
-# endif
-
-# ifndef HEX_CHARS_UPPERCASE
-#  define HEX_CHARS_UPPERCASE "0123456789ABCDEF"
-# endif
+# define HEX_CHARS "0123456789abcdef"
+# define HEX_CHARS_UPPERCASE "0123456789ABCDEF"
 
 int	ft_printf(const char *input, ...);
 
 int	check_format(va_list *args, char c, int count);
 
-int	putchar_return(va_list *args);
+int	print_hex_pointer(va_list *args);
+
+int	print_hex_lowercase(va_list *args);
+
+int	print_hex_uppercase(va_list *args);
 
 int	print_string(va_list *args);
 
-int	print_hex_pointer(va_list *args);
+int	putchar_return(va_list *args);
+
+int	print_integer_base10(va_list *args);
+
+int	print_unsigned_base10(va_list *args);
 
 #endif

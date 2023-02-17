@@ -1,3 +1,4 @@
 libftprintf.a
 ft_printf.o
 a.out
+*.o

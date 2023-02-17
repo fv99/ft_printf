@@ -6,14 +6,14 @@
 #    By: fvonsovs <fvonsovs@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/27 12:36:48 by fvonsovs          #+#    #+#              #
-#    Updated: 2023/02/13 15:07:28 by fvonsovs         ###   ########.fr        #
+#    Updated: 2023/02/17 15:35:57 by fvonsovs         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC			=	gcc
 CFLAGS		=	-Wall -Wextra -Werror
 NAME		=	libftprintf.a
-SRCS		=	ft_printf.c
+SRCS		=	ft_printf.c ft_print_chars.c ft_print_hexadecimals.c ft_print_numerals.c
 INCS		=	libftprintf.h
 OBJS		=	${SRCS:.c=.o}
 LIBC		=	ar -cvq
