@@ -6,7 +6,7 @@
 /*   By: fvonsovs <fvonsovs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 12:42:46 by fvonsovs          #+#    #+#             */
-/*   Updated: 2023/02/17 15:33:17 by fvonsovs         ###   ########.fr       */
+/*   Updated: 2023/02/19 16:27:32 by fvonsovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	ft_printf(const char *input, ...)
 	{
 		if (ptr[i] == '%')
 		{
-			count += check_format(&args, ptr[i + 1], count);
+			count = check_format(&args, ptr[i + 1], count);
 			i += 2;
 		}
 		else

@@ -6,7 +6,7 @@
 /*   By: fvonsovs <fvonsovs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 15:22:06 by fvonsovs          #+#    #+#             */
-/*   Updated: 2023/02/17 15:35:28 by fvonsovs         ###   ########.fr       */
+/*   Updated: 2023/02/19 18:09:28 by fvonsovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,19 @@ int	print_hex_pointer(va_list *args)
 	int			len;
 
 	ft_memset(buf, 0, sizeof(buf));
-	i = sizeof(buf) - 2;
+	i = sizeof(buf) - 3;
 	val = (uintptr_t)va_arg(*args, void *);
+	if (val == 0)
+		return(write (1, "(nil)", 5));
 	buf[0] = '0';
 	buf[1] = 'x';
-	while (i >= 2)
+	while (val > 0 && i >= 2)
 	{
 		buf[i] = HEX_CHARS[val & 0x0f];
 		val >>= 4;
 		i--;
-		if (val == 0)
-			break ;
 	}
-	buf[sizeof(buf) - 1] = '\0';
+	// buf[sizeof(buf) - 1] = '\0';
 	len = sizeof(buf) - i - 1;
 	write(1, buf, len);
 	return (len);
