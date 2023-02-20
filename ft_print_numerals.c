@@ -6,7 +6,7 @@
 /*   By: fvonsovs <fvonsovs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 15:18:27 by fvonsovs          #+#    #+#             */
-/*   Updated: 2023/02/20 17:27:56 by fvonsovs         ###   ########.fr       */
+/*   Updated: 2023/02/20 17:31:53 by fvonsovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	print_unsigned_base10(va_list *args)
 	unsigned int	n;
 	char			buf[21];
 	int				i;
+	int				len;
 
 	n = va_arg(*args, unsigned int);
 	i = 0;
@@ -50,10 +51,11 @@ int	print_unsigned_base10(va_list *args)
 			n /= 10;
 		}
 	}
+	len = i;
 	while (i > 0)
 	{
 		i--;
 		write(1, &buf[i], 1);
 	}
-	return (i);
+	return (len);
 }
