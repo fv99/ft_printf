@@ -6,44 +6,52 @@
 /*   By: fvonsovs <fvonsovs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 15:22:06 by fvonsovs          #+#    #+#             */
-/*   Updated: 2023/02/19 18:09:28 by fvonsovs         ###   ########.fr       */
+/*   Updated: 2023/02/20 17:11:10 by fvonsovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-// The val & 0x0f operation retrieves
-// the rightmost 4 bits of the binary
-// number val, and indexes the HEX_CHARS
-// string with this 4-bit value to get the
-// corresponding hexadecimal character. 
-// The val >>= 4 operation shifts the
-// binary number val 4 bits to the right, 
-// effectively dividing the binary number by 16. 
-int	print_hex_pointer(va_list *args)
+// initializes the variatic into a pointer
+// to pass to the print_hex_pointer function
+int	initialize_pointer(va_list *args)
 {
-	char		buf[sizeof(uintptr_t) * 2 + 3];
+	int 	count;
+	void	*ptr;
+
+	count = 0;
+	ptr = va_arg(*args, void *);
+	count = print_hex_pointer(ptr, count);
+	return (count);
+}
+
+// prints our hex pointer
+int	print_hex_pointer(const void *ptr, int count)
+{
 	uintptr_t	val;
 	int			i;
-	int			len;
+	int			j;
+	char		buf[sizeof(uintptr_t) * 2 + 1];
 
-	ft_memset(buf, 0, sizeof(buf));
-	i = sizeof(buf) - 3;
-	val = (uintptr_t)va_arg(*args, void *);
+	i = 0;
+	val = (uintptr_t)ptr;
 	if (val == 0)
 		return(write (1, "(nil)", 5));
-	buf[0] = '0';
-	buf[1] = 'x';
-	while (val > 0 && i >= 2)
+	count += write(1, "0x", 2);
+	while (val != 0)
 	{
-		buf[i] = HEX_CHARS[val & 0x0f];
-		val >>= 4;
-		i--;
+		buf[i++] = HEX_CHARS[val % 16];
+		val /= 16;
 	}
-	// buf[sizeof(buf) - 1] = '\0';
-	len = sizeof(buf) - i - 1;
-	write(1, buf, len);
-	return (len);
+	buf[ft_strlen(buf)] = '\0';
+	j = i - 1;
+	while (j >= 0)
+	{
+		write(1, &buf[j], 1);
+		count++;
+		j--;
+	}
+	return (count);
 }
 
 // in C hex values unsigned by default

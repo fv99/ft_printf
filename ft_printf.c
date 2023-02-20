@@ -6,7 +6,7 @@
 /*   By: fvonsovs <fvonsovs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 12:42:46 by fvonsovs          #+#    #+#             */
-/*   Updated: 2023/02/19 16:27:32 by fvonsovs         ###   ########.fr       */
+/*   Updated: 2023/02/20 16:52:07 by fvonsovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	check_format(va_list *args, char c, int count)
 	if (c == 's')
 		count += print_string(args);
 	if (c == 'p')
-		count += print_hex_pointer(args);
+		count += initialize_pointer(args);
 	if (c == 'd' || c == 'i')
 		count += print_integer_base10(args);
 	if (c == 'u')

@@ -6,7 +6,7 @@
 /*   By: fvonsovs <fvonsovs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 12:41:22 by fvonsovs          #+#    #+#             */
-/*   Updated: 2023/02/17 15:37:03 by fvonsovs         ###   ########.fr       */
+/*   Updated: 2023/02/20 17:10:18 by fvonsovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ int	ft_printf(const char *input, ...);
 
 int	check_format(va_list *args, char c, int count);
 
-int	print_hex_pointer(va_list *args);
+int	initialize_pointer(va_list *args);
+
+int	print_hex_pointer(const void *ptr, int count);
 
 int	print_hex_lowercase(va_list *args);
 
