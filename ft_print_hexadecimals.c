@@ -6,7 +6,7 @@
 /*   By: fvonsovs <fvonsovs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 15:22:06 by fvonsovs          #+#    #+#             */
-/*   Updated: 2023/02/20 17:11:10 by fvonsovs         ###   ########.fr       */
+/*   Updated: 2023/02/20 17:51:29 by fvonsovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int	print_hex_lowercase(va_list *args)
 	char			buf[9];
 	int				i;
 	int				digit;
+	int				len;
 
 	n = va_arg(*args, unsigned int);
 	i = 0;
@@ -75,12 +76,13 @@ int	print_hex_lowercase(va_list *args)
 			n /= 16;
 		}
 	}
+	len = i;
 	while (i > 0)
 	{
 		i--;
 		write(1, &buf[i], 1);
 	}
-	return (i);
+	return (len);
 }
 
 int	print_hex_uppercase(va_list *args)
@@ -89,6 +91,7 @@ int	print_hex_uppercase(va_list *args)
 	char			buf[9];
 	int				i;
 	int				digit;
+	int				len;
 
 	n = va_arg(*args, unsigned int);
 	i = 0;
@@ -103,10 +106,11 @@ int	print_hex_uppercase(va_list *args)
 			n /= 16;
 		}
 	}
+	len = i;
 	while (i > 0)
 	{
 		i--;
 		write(1, &buf[i], 1);
 	}
-	return (i);
+	return (len);
 }
