@@ -6,7 +6,7 @@
 /*   By: fvonsovs <fvonsovs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 15:18:27 by fvonsovs          #+#    #+#             */
-/*   Updated: 2023/02/17 15:35:28 by fvonsovs         ###   ########.fr       */
+/*   Updated: 2023/02/20 17:27:56 by fvonsovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,18 @@ int	print_integer_base10(va_list *args)
 {
 	char	*str;
 	int		len;
+	int		n;
 
-	str = ft_itoa(va_arg(*args, int));
+	n = va_arg(*args, int);
+	if (n == -2147483648)
+	{
+		ft_putstr_fd("-2147483648", 1);
+		return (11);
+	}
+	str = ft_itoa(n);
 	ft_putstr_fd(str, 1);
 	len = ft_strlen(str);
-	if (ft_strncmp(str, "-2147483648", 12) != 0)
-		free(str);
+	free(str);
 	return (len);
 }
 
