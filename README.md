@@ -12,7 +12,9 @@
 - `%x` Prints a number in hexadecimal (base 16) lowercase format.
 - `%X` Prints a number in hexadecimal (base 16) uppercase format.
 - `%%` Prints a percent sign.
+- Don’t implement the buffer management of the original printf().
+
+**Bonus flags (not done)**
 - Manage any combination of the following flags: `-0.` and the field minimum width
 under all conversions.
 - Manage all the following flags: `# +` (Yes, one of them is a space)
-- Don’t implement the buffer management of the original printf().
