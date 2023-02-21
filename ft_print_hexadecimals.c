@@ -6,7 +6,7 @@
 /*   By: fvonsovs <fvonsovs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 15:22:06 by fvonsovs          #+#    #+#             */
-/*   Updated: 2023/02/20 17:51:29 by fvonsovs         ###   ########.fr       */
+/*   Updated: 2023/02/21 15:22:55 by fvonsovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 // to pass to the print_hex_pointer function
 int	initialize_pointer(va_list *args)
 {
-	int 	count;
+	int		count;
 	void	*ptr;
 
 	count = 0;
@@ -36,7 +36,7 @@ int	print_hex_pointer(const void *ptr, int count)
 	i = 0;
 	val = (uintptr_t)ptr;
 	if (val == 0)
-		return(write (1, "(nil)", 5));
+		return (write (1, "(nil)", 5));
 	count += write(1, "0x", 2);
 	while (val != 0)
 	{
@@ -67,14 +67,11 @@ int	print_hex_lowercase(va_list *args)
 	i = 0;
 	if (n == 0)
 		buf[i++] = '0';
-	else
+	while (n > 0)
 	{
-		while (n > 0)
-		{
-			digit = n % 16;
-			buf[i++] = HEX_CHARS[digit];
-			n /= 16;
-		}
+		digit = n % 16;
+		buf[i++] = HEX_CHARS[digit];
+		n /= 16;
 	}
 	len = i;
 	while (i > 0)
@@ -97,14 +94,11 @@ int	print_hex_uppercase(va_list *args)
 	i = 0;
 	if (n == 0)
 		buf[i++] = '0';
-	else
+	while (n > 0)
 	{
-		while (n > 0)
-		{
-			digit = n % 16;
-			buf[i++] = HEX_CHARS_UPPERCASE[digit];
-			n /= 16;
-		}
+		digit = n % 16;
+		buf[i++] = HEX_CHARS_UPPERCASE[digit];
+		n /= 16;
 	}
 	len = i;
 	while (i > 0)
